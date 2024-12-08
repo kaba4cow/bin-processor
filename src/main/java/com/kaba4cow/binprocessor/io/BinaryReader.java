@@ -128,9 +128,21 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public byte[] readByteArray(int length) throws IOException {
-		byte[] array = new byte[length];
-		input.read(array);
-		return array;
+		return readByteArray(new byte[length]);
+	}
+
+	/**
+	 * Reads a byte array into the specified target array from the input stream.
+	 *
+	 * @param target the target array to store the bytes
+	 * 
+	 * @return the target array with the bytes read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public byte[] readByteArray(byte[] target) throws IOException {
+		input.read(target);
+		return target;
 	}
 
 	/**
@@ -143,10 +155,22 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public short[] readShortArray(int length) throws IOException {
-		short[] array = new short[length];
-		for (int i = 0; i < array.length; i++)
-			array[i] = readShort();
-		return array;
+		return readShortArray(new short[length]);
+	}
+
+	/**
+	 * Reads an array of {@code short}s into the specified target array from the input stream.
+	 *
+	 * @param target the target array to store the shorts
+	 * 
+	 * @return the target array with the shorts read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public short[] readShortArray(short[] target) throws IOException {
+		for (int i = 0; i < target.length; i++)
+			target[i] = readShort();
+		return target;
 	}
 
 	/**
@@ -159,10 +183,22 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public char[] readCharArray(int length) throws IOException {
-		char[] array = new char[length];
-		for (int i = 0; i < array.length; i++)
-			array[i] = readChar();
-		return array;
+		return readCharArray(new char[length]);
+	}
+
+	/**
+	 * Reads an array of {@code char}s into the specified target array from the input stream.
+	 *
+	 * @param target the target array to store the chars
+	 * 
+	 * @return the target array with the chars read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public char[] readCharArray(char[] target) throws IOException {
+		for (int i = 0; i < target.length; i++)
+			target[i] = readChar();
+		return target;
 	}
 
 	/**
@@ -175,10 +211,22 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public int[] readIntArray(int length) throws IOException {
-		int[] array = new int[length];
-		for (int i = 0; i < array.length; i++)
-			array[i] = readInt();
-		return array;
+		return readIntArray(new int[length]);
+	}
+
+	/**
+	 * Reads an array of {@code int}s into the specified target array from the input stream.
+	 *
+	 * @param target the target array to store the ints
+	 * 
+	 * @return the target array with the ints read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public int[] readIntArray(int[] target) throws IOException {
+		for (int i = 0; i < target.length; i++)
+			target[i] = readInt();
+		return target;
 	}
 
 	/**
@@ -191,10 +239,22 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public long[] readLongArray(int length) throws IOException {
-		long[] array = new long[length];
-		for (int i = 0; i < array.length; i++)
-			array[i] = readLong();
-		return array;
+		return readLongArray(new long[length]);
+	}
+
+	/**
+	 * Reads an array of {@code long}s into the specified target array from the input stream.
+	 *
+	 * @param target the target array to store the longs
+	 * 
+	 * @return the target array with the longs read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public long[] readLongArray(long[] target) throws IOException {
+		for (int i = 0; i < target.length; i++)
+			target[i] = readLong();
+		return target;
 	}
 
 	/**
@@ -207,10 +267,22 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public float[] readHalfArray(int length) throws IOException {
-		float[] array = new float[length];
-		for (int i = 0; i < array.length; i++)
-			array[i] = readHalf();
-		return array;
+		return readHalfArray(new float[length]);
+	}
+
+	/**
+	 * Reads an array of half-precision floats (16-bit) into the specified target array from the input stream.
+	 *
+	 * @param target the target array to store the half-precision floats
+	 * 
+	 * @return the target array with the half-precision floats read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public float[] readHalfArray(float[] target) throws IOException {
+		for (int i = 0; i < target.length; i++)
+			target[i] = readHalf();
+		return target;
 	}
 
 	/**
@@ -223,10 +295,22 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public float[] readFloatArray(int length) throws IOException {
-		float[] array = new float[length];
-		for (int i = 0; i < array.length; i++)
-			array[i] = readFloat();
-		return array;
+		return readFloatArray(new float[length]);
+	}
+
+	/**
+	 * Reads an array of {@code float}s into the specified target array from the input stream.
+	 *
+	 * @param target the target array to store the floats
+	 * 
+	 * @return the target array with the floats read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public float[] readFloatArray(float[] target) throws IOException {
+		for (int i = 0; i < target.length; i++)
+			target[i] = readFloat();
+		return target;
 	}
 
 	/**
@@ -239,10 +323,22 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public double[] readDoubleArray(int length) throws IOException {
-		double[] array = new double[length];
-		for (int i = 0; i < array.length; i++)
-			array[i] = readDouble();
-		return array;
+		return readDoubleArray(new double[length]);
+	}
+
+	/**
+	 * Reads an array of {@code double}s into the specified target array from the input stream.
+	 *
+	 * @param target the target array to store the doubles
+	 * 
+	 * @return the target array with the doubles read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public double[] readDoubleArray(double[] target) throws IOException {
+		for (int i = 0; i < target.length; i++)
+			target[i] = readDouble();
+		return target;
 	}
 
 	/**
@@ -313,6 +409,8 @@ public class BinaryReader implements Closeable {
 	 * @return a reference to this object
 	 * 
 	 * @throws IOException if an I/O error occurs
+	 * 
+	 * @see InputStream#skip(long)
 	 */
 	public BinaryReader skipBytes(long bytes) throws IOException {
 		input.skip(bytes);
