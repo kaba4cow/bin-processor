@@ -19,6 +19,7 @@ public class BinaryReader implements Closeable {
 
 	private final InputStream input;
 	private ByteOrder order;
+	private long position;
 
 	/**
 	 * Constructs a {@code BinaryReader} with the specified {@link InputStream} with {@link ByteOrder#BIG_ENDIAN} byte order.
@@ -28,6 +29,7 @@ public class BinaryReader implements Closeable {
 	public BinaryReader(InputStream input) {
 		this.input = input;
 		this.order = ByteOrder.BIG_ENDIAN;
+		this.position = 0L;
 	}
 
 	/**
@@ -38,7 +40,10 @@ public class BinaryReader implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public byte readByte() throws IOException {
-		return (byte) input.read();
+		int value = input.read();
+		if (value != -1)
+			position++;
+		return (byte) value;
 	}
 
 	/**
@@ -142,6 +147,7 @@ public class BinaryReader implements Closeable {
 	 */
 	public byte[] readByteArray(byte[] target) throws IOException {
 		input.read(target);
+		position += target.length;
 		return target;
 	}
 
@@ -365,6 +371,8 @@ public class BinaryReader implements Closeable {
 		StringBuilder string = new StringBuilder();
 		while (true) {
 			int b = input.read();
+			if (b != -1)
+				position++;
 			if (b == '\0' || b == -1)
 				break;
 			string.append((char) b);
@@ -436,6 +444,15 @@ public class BinaryReader implements Closeable {
 	 */
 	public ByteOrder getOrder() {
 		return order;
+	}
+
+	/**
+	 * Gets the current position in the input stream.
+	 *
+	 * @return the current position in bytes from the start of the stream
+	 */
+	public long getPosition() {
+		return position;
 	}
 
 	/**

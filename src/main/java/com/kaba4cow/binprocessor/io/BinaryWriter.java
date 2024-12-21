@@ -18,6 +18,7 @@ public class BinaryWriter implements Closeable {
 
 	private final OutputStream output;
 	private ByteOrder order;
+	private long position;
 
 	/**
 	 * Constructs a {@code BinaryWriter} with the specified {@link OutputStream} with {@link ByteOrder#BIG_ENDIAN} byte order.
@@ -27,6 +28,7 @@ public class BinaryWriter implements Closeable {
 	public BinaryWriter(OutputStream output) {
 		this.output = output;
 		this.order = ByteOrder.BIG_ENDIAN;
+		this.position = 0L;
 	}
 
 	/**
@@ -40,6 +42,7 @@ public class BinaryWriter implements Closeable {
 	 */
 	public BinaryWriter writeByte(byte b) throws IOException {
 		output.write(b);
+		position++;
 		return this;
 	}
 
@@ -53,7 +56,7 @@ public class BinaryWriter implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public BinaryWriter writeShort(short s) throws IOException {
-		output.write(BinaryConverter.fromShort(s, order));
+		writeByteArray(BinaryConverter.fromShort(s, order));
 		return this;
 	}
 
@@ -67,7 +70,7 @@ public class BinaryWriter implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public BinaryWriter writeChar(char c) throws IOException {
-		output.write(BinaryConverter.fromChar(c, order));
+		writeByteArray(BinaryConverter.fromChar(c, order));
 		return this;
 	}
 
@@ -81,7 +84,7 @@ public class BinaryWriter implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public BinaryWriter writeInt(int i) throws IOException {
-		output.write(BinaryConverter.fromInt(i, order));
+		writeByteArray(BinaryConverter.fromInt(i, order));
 		return this;
 	}
 
@@ -95,7 +98,7 @@ public class BinaryWriter implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public BinaryWriter writeLong(long l) throws IOException {
-		output.write(BinaryConverter.fromLong(l, order));
+		writeByteArray(BinaryConverter.fromLong(l, order));
 		return this;
 	}
 
@@ -109,7 +112,7 @@ public class BinaryWriter implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public BinaryWriter writeHalf(float h) throws IOException {
-		output.write(BinaryConverter.fromHalf(h, order));
+		writeByteArray(BinaryConverter.fromHalf(h, order));
 		return this;
 	}
 
@@ -123,7 +126,7 @@ public class BinaryWriter implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public BinaryWriter writeFloat(float f) throws IOException {
-		output.write(BinaryConverter.fromFloat(f, order));
+		writeByteArray(BinaryConverter.fromFloat(f, order));
 		return this;
 	}
 
@@ -137,7 +140,7 @@ public class BinaryWriter implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public BinaryWriter writeDouble(double d) throws IOException {
-		output.write(BinaryConverter.fromDouble(d, order));
+		writeByteArray(BinaryConverter.fromDouble(d, order));
 		return this;
 	}
 
@@ -151,8 +154,10 @@ public class BinaryWriter implements Closeable {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public BinaryWriter writeByteArray(byte[] array) throws IOException {
-		if (array.length > 0)
+		if (array.length > 0) {
 			output.write(array);
+			position += array.length;
+		}
 		return this;
 	}
 
@@ -341,6 +346,15 @@ public class BinaryWriter implements Closeable {
 	 */
 	public ByteOrder getOrder() {
 		return order;
+	}
+
+	/**
+	 * Gets the current position in the output stream.
+	 *
+	 * @return the current position in bytes from the start of the stream
+	 */
+	public long getPosition() {
+		return position;
 	}
 
 	/**
