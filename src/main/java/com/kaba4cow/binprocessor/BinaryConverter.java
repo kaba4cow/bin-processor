@@ -30,7 +30,7 @@ public class BinaryConverter {
 	 * @throws IllegalArgumentException if the length of {@code bytes} is not 1
 	 */
 	public static byte toByte(byte[] bytes) {
-		checkLength(bytes, Byte.BYTES);
+		requireLength(bytes, Byte.BYTES);
 		return bytes[0];
 	}
 
@@ -45,7 +45,7 @@ public class BinaryConverter {
 	 * @throws IllegalArgumentException if the length of {@code bytes} is not 2
 	 */
 	public static short toShort(byte[] bytes, ByteOrder order) {
-		checkLength(bytes, Short.BYTES);
+		requireLength(bytes, Short.BYTES);
 		applyOrder(bytes, order);
 		return (short) (0//
 				| (bytes[0] << 8) //
@@ -66,7 +66,7 @@ public class BinaryConverter {
 	 * @throws IllegalArgumentException if the length of {@code bytes} is not 2
 	 */
 	public static char toChar(byte[] bytes, ByteOrder order) {
-		checkLength(bytes, Character.BYTES);
+		requireLength(bytes, Character.BYTES);
 		applyOrder(bytes, order);
 		return (char) (0//
 				| ((char) bytes[0] << 8) //
@@ -87,7 +87,7 @@ public class BinaryConverter {
 	 * @throws IllegalArgumentException if the length of {@code bytes} is not 4
 	 */
 	public static int toInt(byte[] bytes, ByteOrder order) {
-		checkLength(bytes, Integer.BYTES);
+		requireLength(bytes, Integer.BYTES);
 		applyOrder(bytes, order);
 		return (0//
 				| (bytes[0] << 24) //
@@ -112,7 +112,7 @@ public class BinaryConverter {
 	 * @throws IllegalArgumentException if the length of {@code bytes} is not 8
 	 */
 	public static long toLong(byte[] bytes, ByteOrder order) {
-		checkLength(bytes, Long.BYTES);
+		requireLength(bytes, Long.BYTES);
 		applyOrder(bytes, order);
 		return (0L//
 				| ((long) bytes[0] << 56) //
@@ -303,7 +303,7 @@ public class BinaryConverter {
 		return bytes;
 	}
 
-	private static void checkLength(byte[] bytes, int length) {
+	private static void requireLength(byte[] bytes, int length) {
 		if (bytes.length != length)
 			throw new IllegalArgumentException(
 					String.format("Invalid byte array length: expected %s, got %s", length, bytes.length));

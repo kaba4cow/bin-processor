@@ -393,17 +393,11 @@ public class BinaryReader implements Closeable {
 	 * @throws NoSuchElementException if the string representation does not match any enum constant
 	 */
 	public <T extends Enum<T>> T readEnum(Class<T> type, EnumFormat format) throws IOException {
-		T[] constants = type.getEnumConstants();
 		switch (format) {
 			case ORDINAL:
-				return constants[readInt()];
+				return type.getEnumConstants()[readInt()];
 			case STRING:
-				String string = readStringTerminated();
-				for (T constant : constants)
-					if (string.equals(constant.toString()))
-						return constant;
-				throw new NoSuchElementException(
-						String.format("%s does not contain enum constant %s", type.getSimpleName(), string));
+				return Enum.valueOf(type, readStringTerminated());
 			default:
 				throw new IllegalArgumentException(String.format("Unreachable: unknown format ", format));
 		}
