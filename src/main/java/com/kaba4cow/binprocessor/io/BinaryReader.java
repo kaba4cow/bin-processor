@@ -356,8 +356,19 @@ public class BinaryReader implements Closeable {
 	 * 
 	 * @throws IOException if an I/O error occurs
 	 */
-	public String readString(int length) throws IOException {
+	public String readStringFixed(int length) throws IOException {
 		return new String(readByteArray(length));
+	}
+
+	/**
+	 * Reads a variable-length string from the input stream, preceded by its length as an {@code int}.
+	 * 
+	 * @return the string read
+	 * 
+	 * @throws IOException if an I/O error occurs
+	 */
+	public String readStringVarying() throws IOException {
+		return readStringFixed(readInt());
 	}
 
 	/**
